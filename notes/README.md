@@ -9,3 +9,5 @@
 5. [why-orchestration-matters.md](./why-orchestration-matters.md) — 为什么编排能力强  
 
 本地跑通提醒：配置与 API key 放在机器 `~/.codex/`，**不要**提交密钥。
+
+6. [compare-penguin-weknora.md](./compare-penguin-weknora.md) — Penguin / WeKnora / Codex 怎么拼，为何可替代 Dify 当参考
