@@ -15,7 +15,7 @@
 
 | 模块 | 说明 |
 |------|------|
-| 登录 | 先 Email/密码或 GitHub OAuth 二选一即可（OIDC 可二期对齐 WeKnora） |
+| 登录 | **邮箱 + 密码**（OIDC / GitHub OAuth 二期） |
 | 空间（Workspace/Tenant） | 一用户可多空间；当前空间上下文 |
 | RBAC | `viewer` / `contributor` / `admin` / `owner` |
 | Coding 任务 | 指定仓库/目录说明 + prompt → 创建 Job |
@@ -118,9 +118,10 @@ Control Plane (新仓库，如 codex-platform)
 前缀：`/api/v1`。除登录外均需 Bearer；写操作带 workspace 上下文（路径或头 `X-Workspace-Id`）。
 
 ### Auth
-- `POST /auth/register` / `POST /auth/login`
+- `POST /auth/register` `{ email, password }`
+- `POST /auth/login` `{ email, password }`
 - `GET /auth/me`
-- `POST /auth/oauth/github/callback`（若启用）
+- ~~`POST /auth/oauth/github/callback`~~（二期）
 
 ### Workspaces
 - `GET /workspaces`
@@ -196,8 +197,8 @@ codex exec --json --skip-git-repo-check "$PROMPT"
 
 ## 11. 开放问题（开工前可再定）
 
-1. 登录优先：GitHub OAuth 还是邮箱？  
-2. Job 输入：只支持「已 clone 的模板仓库」还是任意 `repo_url`？  
-3. 审批策略：MVP 是否强制 `approval_policy = never` + 强沙箱（自动化），还是要把审批打回网页？  
+1. ~~登录优先~~ → **已定：邮箱 + 密码**  
+2. Job 输入：MVP 允许任意 `repo_url`（可后加「仅模板仓库」）  
+3. 审批：MVP **`approval_policy = never` + workspace-write 沙箱**；网页只做观看与取消  
 
-默认建议：GitHub OAuth；MVP 允许 `repo_url`；审批先 `never` + workspace-write 沙箱，网页只做取消与观看。
+已拍板默认：邮箱登录；`repo_url`；自动审批 + 强沙箱。
